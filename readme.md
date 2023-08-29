@@ -63,33 +63,31 @@ Directly using IntelliDocChat on Windows is not recommended; however, it will ru
 
 3. Create the required directories:
     ```
-    make required dirs
+    mkdir required dirs
     ```
 
-4. Make two directories named `tmp` and `knowledge_base`.
-
-5. Create a `.env` file with your OpenAI API key:
+4. Create a `.env` file with your OpenAI API key:
     ```
     echo 'OPENAI_API_KEY="YOUR_API_KEY"' > .env
     ```
    Replace `YOUR_API_KEY` with your actual OpenAI API key.
 
-6. Set up a virtual environment named 'env':
+5. Set up a virtual environment named 'env':
     ```
     virtualenv env
     ```
 
-7. Activate the virtual environment:
+6. Activate the virtual environment:
     ```
     source env/bin/activate
     ```
 
-8. Install the required Python packages from the `requirements.txt` file:
+7. Install the required Python packages from the `requirements.txt` file:
     ```
     pip install -r requirements.txt
     ```
 
-9. Run the IntelliDocChat using Streamlit:
+8. Run the IntelliDocChat using Streamlit:
     ```
     streamlit run main.py
     ```
