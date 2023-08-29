@@ -1,2 +1,5 @@
 .env
 env/
+knowledge_base/
+tmp/
+database.db

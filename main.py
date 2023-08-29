@@ -11,6 +11,7 @@ import time
 from io import StringIO
 from pathlib import Path
 
+
 kb = KnowledgeBase()
 
 home_md = Path("/home/ubuntu/workspace/readme.md").read_text()
@@ -63,32 +64,35 @@ selection = sidebar.selectbox("Select an Option", ['Home','Chat', 'Knowledge Bas
 if selection == 'Home':
     st.header("👋Hey, Welcome to IntelliDocChat", divider=None, anchor=False)
     st.subheader('AI Powered Document Chat Application', anchor=False, help=None, divider='rainbow')
-    st.markdown(home_md)
+    st.markdown(home_md,)
 
 elif selection == "Chat":
     base = []
     for i in kb.get_all_entries():
         base.append(i[0])
     kb_name = sidebar.selectbox("Select a Knowledge Base", base)
-    persist_path = kb.get_entry_by_name(kb_name)[1]
-    # Initilizing Chat History
-    st.header("Welcome to IntelliDocChat👋", divider='rainbow', anchor=False)
-    if "messages" not in st.session_state:
-        st.session_state.messages = []
-    # Display chat messages from history on app rerun
-    for message in st.session_state.messages:
-        with st.chat_message(name=message["role"], avatar=message['avatar']):
-            st.markdown(message["content"], )
-    # Finally Chat
-    if prompt := st.chat_input("What's Your Query Today?",):
-        with st.chat_message("user", avatar="https://i.imgur.com/hjaMekQs.png"):
-            st.markdown(prompt)
-        with st.chat_message("ai", avatar="https://i.imgur.com/YbXPMFks.jpeg"): 
-            resp = ask(prompt,persist_path)
-            st.markdown(resp['response'])
-            st.metric(label="Prompt/Completion", value="{}/{} Tokens".format(resp['prompt'], resp['completion']), delta="Total Cost: ${}".format(resp['cost']))
-        st.session_state.messages.append({"role": "User", "content": prompt, "avatar": "https://i.imgur.com/hjaMekQs.png"})
-        st.session_state.messages.append({"role": "Assistant", "content": resp['response'], "avatar":"https://i.imgur.com/YbXPMFks.jpeg"})
+    try:
+        persist_path = kb.get_entry_by_name(kb_name)[1]
+        # Initilizing Chat History
+        st.header("Welcome to IntelliDocChat👋", divider='rainbow', anchor=False)
+        if "messages" not in st.session_state:
+            st.session_state.messages = []
+        # Display chat messages from history on app rerun
+        for message in st.session_state.messages:
+            with st.chat_message(name=message["role"], avatar=message['avatar']):
+                st.markdown(message["content"], )
+        # Finally Chat
+        if prompt := st.chat_input("What's Your Query Today?",):
+            with st.chat_message("user", avatar="https://i.imgur.com/hjaMekQs.png"):
+                st.markdown(prompt)
+            with st.chat_message("ai", avatar="https://i.imgur.com/YbXPMFks.jpeg"): 
+                resp = ask(prompt,persist_path)
+                st.markdown(resp['response'])
+                st.metric(label="Prompt/Completion", value="{}/{} Tokens".format(resp['prompt'], resp['completion']), delta="Total Cost: ${}".format(resp['cost']))
+            st.session_state.messages.append({"role": "User", "content": prompt, "avatar": "https://i.imgur.com/hjaMekQs.png"})
+            st.session_state.messages.append({"role": "Assistant", "content": resp['response'], "avatar":"https://i.imgur.com/YbXPMFks.jpeg"})
+    except:
+        st.warning("No Knowledge Base Available, Try Creating One")
 
 
 

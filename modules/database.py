@@ -33,6 +33,7 @@ class KnowledgeBase:
     def get_all_entries(self):
         self.cursor.execute('SELECT * FROM knowledge_base')
         return self.cursor.fetchall()
+    
 
     def close_connection(self):
         self.conn.close()
