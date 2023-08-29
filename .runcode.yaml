@@ -1,0 +1,6 @@
+onCreate:
+  - |   
+        pip install -r requirements.txt
+        printf "Now Go to .env file and paste your OpenAPI Key for e.g. OPENAI_API_KEY='YOUR_API_KEY'"
+        echo 'OPENAI_API_KEY="YOUR_API_KEY"' > .env
+        streamlit run main.py --server.enableCORS=false
