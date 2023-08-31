@@ -63,7 +63,7 @@ Directly using IntelliDocChat on Windows is not recommended; however, it will ru
 
 3. Create the required directories:
     ```
-    mkdir required dirs
+    mkdir tmp knowledge_base
     ```
 
 4. Create a `.env` file with your OpenAI API key:
